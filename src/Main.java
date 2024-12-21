@@ -1,4 +1,5 @@
-import  Wordle.ui.UserInterface;
+import ui.UserInterface;
+
 import java.time.LocalDateTime;
 public class Main {
 

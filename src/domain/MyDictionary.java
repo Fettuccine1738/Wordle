@@ -8,42 +8,33 @@ import java.util.Scanner;
 
 public class MyDictionary {
 
-    private final ArrayList<String> wordList;
+    public static String PATH =  "src\\Dict.txt";
+    public static final ArrayList<String> DICTIONARY = new ArrayList<>();
 
-    public MyDictionary () {
-        wordList = populateFromFile();
-    }
-
-    public ArrayList<String> populateFromFile()  {
-        String filePath =  "C:\\Users\\favya\\IdeaProjects\\Wordle\\src\\Dictionary.txt";
-        ArrayList<String> imports = new ArrayList<>();
-
+    public static void buildTSTFromFile(TernarySearchTrie tst, String filepath)  {
         try {
-            File file = new File(filePath);
+            File file = new File(filepath);
             Scanner reader = new Scanner(file);
-
 
             while(reader.hasNext()) {
                 String word = reader.next();
-                //ensures word is always in upper case when read from file.
-                String trimmedUpperCaseWord = word.trim().toUpperCase();
-                imports.add(trimmedUpperCaseWord);
+                DICTIONARY.add(word);
+                tst.put(word);
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-        return imports;
     }
 
-    public int getSize() {
+    public  static int getSize() {
         //returns size of Dictionary(List of words in file)
-        return wordList.size();
+        return DICTIONARY.size();
     }
 
-    public String getIndex(int index) {
+    public static String getIndex(int index) {
         //returns the string at an index
-        return wordList.get(index);
+        return DICTIONARY.get(index);
     }
 }

@@ -8,6 +8,12 @@ public class WordleLogic {
     public StringBuilder stringBuilder;
     private final String wordOfTheDay;
     private final Random rand;
+    private static final TernarySearchTrie trie = new TernarySearchTrie();
+
+
+    static {
+        MyDictionary.buildTSTFromFile(trie, MyDictionary.PATH);
+    }
 
     public WordleLogic() {
         stringBuilder = new StringBuilder("\n");
@@ -17,11 +23,9 @@ public class WordleLogic {
     }
 
     public String getWordOfTheDay() {
-        MyDictionary myDictionary = new MyDictionary();
-
         //returns a random int as (index) to get word from the arraylist
-        int random = rand.nextInt(myDictionary.getSize());
-        return myDictionary.getIndex(random);
+        int random = rand.nextInt(MyDictionary.getSize());
+        return MyDictionary.getIndex(random);
     }
 
     /*logic to check words and indexes: Players have six attempts to guess a five-letter word,
@@ -37,6 +41,13 @@ public class WordleLogic {
         return otherWord.equals(wordOfTheDay);
     }
 
+    /**
+     * @param word to be validated
+     * @return true if word is valid in the ENGLISH lexicon
+     */
+    public static boolean validateWord(String word) {
+        return trie.search(word);
+    }
 
     public String matchIndex(String input) {
         //checks for letters that appear in words but at the wrong index

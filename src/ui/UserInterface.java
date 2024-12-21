@@ -49,7 +49,7 @@ public class UserInterface {
             String read = scanner.nextLine();
 
             /* Ensures input is a 5-letter word and is not entered in lower case: */
-            while(read.length() != 5 || read.equals(read.toLowerCase())) {
+            while(!WordleLogic.validateWord(read)) {
                 System.out.println("Invalid input: Only 5 letter words in ALL CAPS"
                 + "\nEnter word again.");
                 read = scanner.nextLine();
